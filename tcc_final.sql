@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
+--teste
 -- Banco de dados: `tcc_final`
 --
 CREATE DATABASE IF NOT EXISTS `tcc_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
