@@ -69,6 +69,7 @@ if (isset($_SESSION['usuario'])) {
                     <div class="nav-sub-menu" id="subMenu">
                         <div class="perfil-sub-menu">
                             <div class="user-info">
+                                
                             <?php
                                 echo '<h3>' . $row['usuario_nome'] . '</h3>';
                             ?>

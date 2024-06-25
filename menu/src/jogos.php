@@ -95,12 +95,21 @@ if (isset($_SESSION['usuario'])) {
                                 <i class="fa-solid fa-circle-user"></i>
                                 <p>Perfil</p>
                             </a>
+                            <a href="view_chaves.php" class="sub-perfil">
+                                <i class="fa-solid fa-key"></i>
+                                <p>Chaves</p>
+                            </a>
                             <?php
                             if (isset($_SESSION['usuario']) && $_SESSION['usuario']['adm'] == '1') {
                                 echo '
                             <a href="add.php" class="sub-perfil">
                                 <i class="fa-solid fa-plus"></i>
                                 <p>Adicionar Jogo</p>
+                            </a>';
+                            echo '
+                            <a href="add_chavesteam.php" class="sub-perfil">
+                                <i class="fa-solid fa-plus"></i>
+                                <p>Adicionar Chave</p>
                             </a>';
                             }
                                 ?>

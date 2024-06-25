@@ -148,7 +148,7 @@ echo "</script>";
         </div>
             <br>
             <label>Nome do Usuário</label>
-            <p><input type="text" id="username" name="newUsername" style="border: none; outline: none;" value=""></p>
+            <p><input type="text" id="username" name="newUsername" style="border: none; outline: none;" value="<?php echo isset($_SESSION['usuario']['usuario_nome']) ? htmlspecialchars($_SESSION['usuario']['usuario_nome']) : ''; ?>"></p>
             <label>Data de Nascimento</label>
             <?php $data_formatada = date('d/m/Y', strtotime($data_nasc));
             echo '<p style="font-size: 1.2em;">' . $data_formatada . '</p>' ?>

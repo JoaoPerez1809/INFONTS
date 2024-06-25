@@ -129,6 +129,9 @@ if (isset($_FILES['arquivo1'])) {
     <title>Adicionar</title>
 </head>
 <body>
+<a href="hardware.php">
+        Voltar
+        </a>
     <form enctype="multipart/form-data" action="cad_hard.php" method="POST">
         <div class="container">
             <br>

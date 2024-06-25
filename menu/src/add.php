@@ -171,6 +171,9 @@ if (isset($_FILES['arquivo'])) {
     <title>Adicionar</title>
 </head>
 <body>
+<a href="jogos.php">
+        Voltar
+        </a>
     <form enctype="multipart/form-data" action="cad.php" method="POST">
         <div class="container">
             <br>

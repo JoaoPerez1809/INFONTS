@@ -62,6 +62,9 @@ if (isset($_GET['id'])) {
         </head>
 
         <body>
+        <a href="jogos.php">
+        Voltar
+        </a>
             <form enctype="multipart/form-data" action="edit.php?id=<?php echo $id; ?>" method="POST">
                 <div class="container">
                     <input type="hidden" name="id" value="<?php echo $dados['id']; ?>">

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Dez-2023 às 03:20
--- Versão do servidor: 10.4.24-MariaDB
--- versão do PHP: 8.1.6
+-- Tempo de geração: 25/06/2024 às 23:05
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -17,14 +17,39 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---teste
+--
 -- Banco de dados: `tcc_final`
 --
-CREATE DATABASE IF NOT EXISTS `tcc_final` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE `tcc_final`;
+
+-- --------------------------------------------------------
 
 --
--- Estrutura da tabela `comentarioavaliacaohardware`
+-- Estrutura para tabela `chavesteam`
+--
+
+CREATE TABLE `chavesteam` (
+  `id` int(11) NOT NULL,
+  `codigo` varchar(255) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_jogo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `chavesteam`
+--
+
+INSERT INTO `chavesteam` (`id`, `codigo`, `id_usuario`, `id_jogo`) VALUES
+(2, 'Teste', 25, 3),
+(3, 'Teste', 16, 5),
+(4, 'Bora', 16, 5),
+(5, 'Bora', 0, 6),
+(6, 'Pee', 16, 2),
+(7, 'AAAAA-AAAAA-AAAAA-AAAAA', 16, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `comentarioavaliacaohardware`
 --
 
 CREATE TABLE `comentarioavaliacaohardware` (
@@ -35,12 +60,12 @@ CREATE TABLE `comentarioavaliacaohardware` (
   `id_hardware` int(11) NOT NULL,
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `comentarioavaliacaojogo`
+-- Estrutura para tabela `comentarioavaliacaojogo`
 --
 
 CREATE TABLE `comentarioavaliacaojogo` (
@@ -51,23 +76,23 @@ CREATE TABLE `comentarioavaliacaojogo` (
   `id_usuario` int(11) NOT NULL,
   `id_jogo` int(11) NOT NULL,
   `modified` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `comentarioavaliacaojogo`
+-- Despejando dados para a tabela `comentarioavaliacaojogo`
 --
 
 INSERT INTO `comentarioavaliacaojogo` (`id`, `qtd_estrela`, `mensagem`, `created`, `id_usuario`, `id_jogo`, `modified`) VALUES
 (1, 5, 'Muito bom o jogo!', '0000-00-00 00:00:00', 6, 3, NULL),
 (2, 4, 'top', '0000-00-00 00:00:00', 10, 2, NULL),
 (8, 5, 'va', '2023-12-08 01:43:07', 6, 10, NULL),
-(11, 5, 'jogo top', '2023-12-08 16:51:39', 6, 1, NULL),
-(12, 5, 'topzada', '2023-12-08 17:07:07', 6, 2, NULL);
+(12, 5, 'topzada', '2023-12-08 17:07:07', 6, 2, NULL),
+(14, 4, 'teste', '2024-06-25 18:00:39', 16, 1, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `hardwares`
+-- Estrutura para tabela `hardwares`
 --
 
 CREATE TABLE `hardwares` (
@@ -89,10 +114,10 @@ CREATE TABLE `hardwares` (
   `img_hard1` varchar(255) NOT NULL,
   `path2` varchar(255) NOT NULL,
   `img_hard2` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `hardwares`
+-- Despejando dados para a tabela `hardwares`
 --
 
 INSERT INTO `hardwares` (`id`, `nome_hard`, `info_hard`, `datafabricacao_hard`, `empresa_hard`, `img_hard`, `categoriahw`, `preco`, `path`, `pichau_link`, `kabum_link`, `amazon_link`, `terabyte_link`, `aliexpress_link`, `path1`, `img_hard1`, `path2`, `img_hard2`) VALUES
@@ -101,44 +126,44 @@ INSERT INTO `hardwares` (`id`, `nome_hard`, `info_hard`, `datafabricacao_hard`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `jogos`
+-- Estrutura para tabela `jogos`
 --
 
 CREATE TABLE `jogos` (
   `id` int(11) NOT NULL,
-  `sinopse` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nome_da_empresa` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `preco` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `faixa_etaria` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sinopse` text NOT NULL,
+  `nome_da_empresa` varchar(100) NOT NULL,
+  `preco` varchar(255) NOT NULL,
+  `faixa_etaria` varchar(10) NOT NULL,
   `data_lanc` date NOT NULL,
-  `categoria` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `plataformas` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `req` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `req1` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `titulo` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_logo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_jogo_Screen1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_jogo_Screen2` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_jogo_Screen3` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path4` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_jogo_Screen4` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `path5` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img_jogo_Screen5` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `steam_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `epic_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ps_store_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `switch_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `xbox_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `categoria` varchar(100) NOT NULL,
+  `plataformas` varchar(100) NOT NULL,
+  `req` text NOT NULL,
+  `req1` text NOT NULL,
+  `titulo` varchar(80) NOT NULL,
+  `path` varchar(255) NOT NULL,
+  `img_logo` varchar(255) NOT NULL,
+  `path1` varchar(255) NOT NULL,
+  `img_jogo_Screen1` varchar(255) NOT NULL,
+  `path2` varchar(255) NOT NULL,
+  `img_jogo_Screen2` varchar(255) NOT NULL,
+  `path3` varchar(255) NOT NULL,
+  `img_jogo_Screen3` varchar(255) NOT NULL,
+  `path4` varchar(255) NOT NULL,
+  `img_jogo_Screen4` varchar(255) NOT NULL,
+  `path5` varchar(255) NOT NULL,
+  `img_jogo_Screen5` varchar(255) NOT NULL,
+  `steam_link` varchar(255) DEFAULT NULL,
+  `epic_link` varchar(255) DEFAULT NULL,
+  `ps_store_link` varchar(255) DEFAULT NULL,
+  `switch_link` varchar(255) DEFAULT NULL,
+  `xbox_link` varchar(255) DEFAULT NULL,
+  `mobile_link` varchar(255) DEFAULT NULL,
+  `url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Extraindo dados da tabela `jogos`
+-- Despejando dados para a tabela `jogos`
 --
 
 INSERT INTO `jogos` (`id`, `sinopse`, `nome_da_empresa`, `preco`, `faixa_etaria`, `data_lanc`, `categoria`, `plataformas`, `req`, `req1`, `titulo`, `path`, `img_logo`, `path1`, `img_jogo_Screen1`, `path2`, `img_jogo_Screen2`, `path3`, `img_jogo_Screen3`, `path4`, `img_jogo_Screen4`, `path5`, `img_jogo_Screen5`, `steam_link`, `epic_link`, `ps_store_link`, `switch_link`, `xbox_link`, `mobile_link`, `url`) VALUES
@@ -154,7 +179,7 @@ INSERT INTO `jogos` (`id`, `sinopse`, `nome_da_empresa`, `preco`, `faixa_etaria`
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -167,10 +192,10 @@ CREATE TABLE `usuarios` (
   `adm` int(11) DEFAULT 0,
   `path_usuario` varchar(255) NOT NULL,
   `img_usuario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `hash`, `email`, `senha`, `usuario_nome`, `data_nasc`, `adm`, `path_usuario`, `img_usuario`) VALUES
@@ -185,14 +210,24 @@ INSERT INTO `usuarios` (`id`, `hash`, `email`, `senha`, `usuario_nome`, `data_na
 (11, 'wCrIJbaavM46ij9SzR7XQ4mYfSCc0FTu', 'nanana@gmail.com', '$2y$10$EUUc3bxdafdKVks8AztMvOzfCbJm6MjCGxHLv1DkqF4bqn7WpYXIe', 'nanada21314', '2023-12-01', 0, 'profileimg/blob', 'blob'),
 (12, 'E6TAsMycJYUwIcVY0uV8bgKTiAjCUt01', 'gianribeiro555@gmail.com', '$2y$10$KRMRA01O0XnV0g6Khd9qcutWapjqPpmrixBiDDEeasmzGn9TApkGi', 'TiohSans', '2004-07-19', 0, 'profileimg/blob', 'blob'),
 (13, 'WenuJV26o8u7UWfKOrTvB71xIMJbhH88', 'kakaka@gmail.com', '$2y$10$kgwKpq7YYzBj7H83ZPXQbOMPcsDKnBgzSKVPwCKAyL7.IIGFVYeVS', 'testeteste1', '2023-12-01', 0, 'profileimg/blob', 'blob'),
-(14, 'sw9s1BFMGo0Ep9jZBTeId6w8KVPpu19E', 'teste1@gmail.com', '$2y$10$qw8OfGgfxTPf6bJzczlIj.HpEY68/B4ur83dnikQbl2RqFWXWqCaK', 'testes', '2000-07-20', 0, '../img/profile_default.jpg', 'profile_default.jpg');
+(14, 'sw9s1BFMGo0Ep9jZBTeId6w8KVPpu19E', 'teste1@gmail.com', '$2y$10$qw8OfGgfxTPf6bJzczlIj.HpEY68/B4ur83dnikQbl2RqFWXWqCaK', 'testes', '2000-07-20', 0, '../img/profile_default.jpg', 'profile_default.jpg'),
+(15, 'r6uRKGTA9MRswtbJB8pAFtTd6c7w4Fwr', 'Testo123@gmail.com', '$2y$10$XmrXnMClIvT/9DN6IiyGqeKTFslgWRoc8cbzZvkxyq0RT09zUXQze', 'Testo123', '2005-09-18', 0, '../img/profile_default.jpg', 'profile_default.jpg'),
+(16, 'aLvXGuBz72E6FrZXpaorqwHmLtxYTdU6', 'Joao@gmail.com', '$2y$10$Ygba1V91dtUgVbIJD/UeA.LZFxfJMaGRnyWJrUnQHGsvqHdO9RLxG', 'teste', '2005-09-18', 1, 'profileimg/blob', 'blob');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `comentarioavaliacaohardware`
+-- Índices de tabela `chavesteam`
+--
+ALTER TABLE `chavesteam`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_usuario` (`id_usuario`),
+  ADD KEY `id_jogo` (`id_jogo`);
+
+--
+-- Índices de tabela `comentarioavaliacaohardware`
 --
 ALTER TABLE `comentarioavaliacaohardware`
   ADD PRIMARY KEY (`id`),
@@ -200,7 +235,7 @@ ALTER TABLE `comentarioavaliacaohardware`
   ADD KEY `comentarioavaliacaohardware_ibfk_1` (`id_usuario`);
 
 --
--- Índices para tabela `comentarioavaliacaojogo`
+-- Índices de tabela `comentarioavaliacaojogo`
 --
 ALTER TABLE `comentarioavaliacaojogo`
   ADD PRIMARY KEY (`id`),
@@ -208,26 +243,32 @@ ALTER TABLE `comentarioavaliacaojogo`
   ADD KEY `id_jogo` (`id_jogo`);
 
 --
--- Índices para tabela `hardwares`
+-- Índices de tabela `hardwares`
 --
 ALTER TABLE `hardwares`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `jogos`
+-- Índices de tabela `jogos`
 --
 ALTER TABLE `jogos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `chavesteam`
+--
+ALTER TABLE `chavesteam`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `comentarioavaliacaohardware`
@@ -239,7 +280,7 @@ ALTER TABLE `comentarioavaliacaohardware`
 -- AUTO_INCREMENT de tabela `comentarioavaliacaojogo`
 --
 ALTER TABLE `comentarioavaliacaojogo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `hardwares`
@@ -257,21 +298,21 @@ ALTER TABLE `jogos`
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- Restrições para despejos de tabelas
+-- Restrições para tabelas despejadas
 --
 
 --
--- Limitadores para a tabela `comentarioavaliacaohardware`
+-- Restrições para tabelas `comentarioavaliacaohardware`
 --
 ALTER TABLE `comentarioavaliacaohardware`
   ADD CONSTRAINT `comentarioavaliacaohardware_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `comentarioavaliacaohardware_ibfk_2` FOREIGN KEY (`id_hardware`) REFERENCES `hardwares` (`id`) ON DELETE CASCADE;
 
 --
--- Limitadores para a tabela `comentarioavaliacaojogo`
+-- Restrições para tabelas `comentarioavaliacaojogo`
 --
 ALTER TABLE `comentarioavaliacaojogo`
   ADD CONSTRAINT `comentarioavaliacaojogo_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),

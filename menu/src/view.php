@@ -67,9 +67,33 @@ if (isset($_GET['id'])) {
     } else {
         echo "Erro na consulta: " . $mysqli->error;
     }
-  
-}
 
+    if (isset($_POST['comprar'])) {
+        $id_jogo = $_POST['id_jogo'];
+    
+        // Aqui você pode adicionar a lógica para verificar a disponibilidade da chave e atualizá-la para o usuário
+        $query_chave = "SELECT * FROM chavesteam WHERE id_jogo = $id_jogo AND id_usuario = 0 LIMIT 1";
+        $result_chave = $mysqli->query($query_chave);
+    
+        if ($result_chave && $result_chave->num_rows > 0) {
+            $row_chave = $result_chave->fetch_assoc();
+            $chave_id = $row_chave['id'];
+    
+            $update_query = "UPDATE chavesteam SET id_usuario = $userId WHERE id = $chave_id";
+            if ($mysqli->query($update_query)) {
+                echo "Compra realizada com sucesso!";
+            } else {
+                echo "Erro ao atualizar a chave: " . $mysqli->error;
+            }
+        } else {
+            echo "Chave não disponível: " . $mysqli->error;
+        }
+    }
+
+    
+}
+    $id_jogo = $_GET['id'];
+    $sql_countchaves = $mysqli->query("SELECT COUNT(*) From chavesteam where id_jogo = $id_jogo AND id_usuario = 0");
 ?>
 
 <!DOCTYPE html>
@@ -481,7 +505,14 @@ ob_end_flush();
     </div><br><br>      
     
     <div class="game-price">   
-    <?php echo "<p>$preco</p>" ?><br></div>
+    <?php echo "<p>$preco</p>" ?></div>
+    <div class="game-buy">
+    <form action="" method="POST">
+        <input type="hidden" name="id_jogo" value="<?php echo $id_jogo; ?>">
+        <button type="submit" class="buy-button" name="comprar">Comprar</button>
+        <h1 class="card-counter">(<?php echo $sql_countchaves->fetch_row()[0]; ?>)</h1>
+    </form>
+    </div><br>
     <div class="game-lanc">   
     <?php $data_formatada = date('d/m/Y', strtotime($data_lanc));
      echo "<p>Lançamento: $data_formatada</p>" ?><br></div>
